@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<!-- *** Valo-ohjaus-sovelluksen web käyttöliittymä *** 
+
+    (i) Palvelinpäässä toimiva Flask käyttää Jinja2 liitosmoottoria,
+    jolla voi sisällyttää dynaamista sisältöä Python scriptistä html
+    tiedostoon {% ... %} syntaksilla, jota vilahtelee tässäkin sovellutuksessa.
+    
+    Ilman käynnissä olevaa palvelinta tämä html sivu näyttää Jinja syntaksit outoina merkkijonoina -->
+
+<head>
+    <!-- css bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- js bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+
+    <title>valojen ohjauspaneeli</title>
+</head>
+
+<body style="text-align: center; background-color: rgb(3, 49, 3); color: coral; margin-top: 5%;">
+    <h1>Valojen ohjauspaneeli</h1>
+    <br><br>
+    <!-- Jinja Foreach. (i) Mikäli on paljon valoja palvelinsoftassa,
+        tämä adaptoituu ilman muutoksia! -->
+    {% for pin in pins %}
+
+    <h2>{{ pins[pin].name }}
+        <!-- Jos kyseinen valo on jo ennestään päällä-->
+        {% if pins[pin].state == true %}
+        on <strong>päällä</strong></h2>
+    <br><br><br>
+    <div class="row">
+        <div class="col-md-2" style="margin-left: 40%;">
+            <!-- linkissä dynaaminen pinninro ja off-reitti -->
+            <a href="/{{pin}}/off" class="btn btn-block btn-lg btn-danger" role="button">Valo pois</a></div>
+    </div>
+    {% else %}
+    on <strong>sammutettu</strong></h2>
+    <div class="row">
+        <div class="col-md-2" style="margin-left: 40%;">
+            <br><br><br>
+            <!-- linkissä dynaaminen pinninro ja on-reitti -->
+            <a href="/{{pin}}/on" class="btn btn-block btn-lg btn-success" role="button">Valo Päälle</a></div>
+
+    </div>
+    <!-- if lause päättyy-->
+    {% endif %}
+    <!-- silmukka päättyy-->
+    {% endfor %}
+
+    <p style="color: silver; margin-top: 10%; font-family: Franklin Gothic Medium;
+    font-size: large;">
+        github.com/point-sirensimo
+    </p>
+</body>
+
+</html>
